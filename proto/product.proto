@@ -50,7 +50,6 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
-  string api = 1;
 }
 
 service ProductService {
