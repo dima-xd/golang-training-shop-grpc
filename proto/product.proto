@@ -15,47 +15,38 @@ message Product {
 }
 
 message ReadAllRequest {
-  string api = 1;
 }
 
 message ReadAllResponse {
-  string api = 1;
-  repeated Product product = 2;
+  repeated Product product = 1;
 }
 
 message ReadRequest {
-  string api = 1;
-  int64 id = 2;
+  int64 id = 1;
 }
 
 message ReadResponse {
-  string api = 1;
-  Product product = 2;
+  Product product = 1;
 }
 
 message CreateRequest {
-  string api = 1;
-  Product product = 2;
+  Product product = 1;
 }
 
 message CreateResponse {
-  string api = 1;
-  int64 id = 2;
+  int64 id = 1;
 }
 
 message UpdateRequest {
-  string api = 1;
-  int64 id = 2;
-  string unit_price = 3;
+  int64 id = 1;
+  string unit_price = 2;
 }
 
 message UpdateResponse {
-  string api = 1;
 }
 
 message DeleteRequest {
-  string api = 1;
-  int64 id = 2;
+  int64 id = 1;
 }
 
 message DeleteResponse {

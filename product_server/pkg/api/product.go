@@ -35,7 +35,7 @@ func (p ProductServer) ReadAll(ctx context.Context, request *pb.ReadAllRequest) 
 		}
 		respProducts = append(respProducts, product)
 	}
-	return &pb.ReadAllResponse{Api: api, Product: respProducts}, nil
+	return &pb.ReadAllResponse{Product: respProducts}, nil
 }
 
 func (p ProductServer) Read(ctx context.Context, request *pb.ReadRequest) (*pb.ReadResponse, error) {
@@ -51,7 +51,7 @@ func (p ProductServer) Read(ctx context.Context, request *pb.ReadRequest) (*pb.R
 		Quantity:          product.Quantity,
 		UnitPrice:         product.UnitPrice,
 	}
-	return &pb.ReadResponse{Api: api, Product: &respProduct}, nil
+	return &pb.ReadResponse{Product: &respProduct}, nil
 }
 
 func (p ProductServer) Create(ctx context.Context, request *pb.CreateRequest) (*pb.CreateResponse, error) {
@@ -65,7 +65,7 @@ func (p ProductServer) Create(ctx context.Context, request *pb.CreateRequest) (*
 	if err != nil {
 		log.Fatal(err)
 	}
-	return &pb.CreateResponse{Api: api, Id: id}, nil
+	return &pb.CreateResponse{Id: id}, nil
 }
 
 func (p ProductServer) Update(ctx context.Context, request *pb.UpdateRequest) (*pb.UpdateResponse, error) {
