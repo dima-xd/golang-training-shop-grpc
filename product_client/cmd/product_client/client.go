@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	pb "golang-training-shop-grpc/proto/go_proto"
 	"google.golang.org/grpc"
 	"log"
