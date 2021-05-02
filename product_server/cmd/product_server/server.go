@@ -1,13 +1,15 @@
 package main
 
 import (
-	"golang-training-shop-grpc/pkg/db"
-	"golang-training-shop-grpc/product_server/pkg/api"
-	pb "golang-training-shop-grpc/proto/go_proto"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"os"
+
+	"golang-training-shop-grpc/pkg/db"
+	"golang-training-shop-grpc/product_server/pkg/api"
+	pb "golang-training-shop-grpc/proto/go_proto"
+
+	"google.golang.org/grpc"
 )
 
 var (
