@@ -2,7 +2,7 @@
 
 This is grpc-gateway project for working with products via database shop.
 
-**To run this application locally** you need to have this project locally and also have active docker server.
+**To run this application locally** you need to clove this project and also you need to have active docker server.
 
 
 
