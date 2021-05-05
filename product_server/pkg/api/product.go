@@ -15,7 +15,6 @@ type ProductServer struct {
 }
 
 func NewProductServer(db *gorm.DB) *ProductServer {
-	log.SetFormatter(&log.JSONFormatter{})
 	return &ProductServer{productData: data.NewProductData(db)}
 }
 

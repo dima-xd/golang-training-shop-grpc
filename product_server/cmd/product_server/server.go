@@ -1,15 +1,18 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
 	"os"
+	"time"
 
 	"github.com/dimaxdqwerty/golang-training-shop-grpc/pkg/db"
 	"github.com/dimaxdqwerty/golang-training-shop-grpc/product_server/pkg/api"
 	pb "github.com/dimaxdqwerty/golang-training-shop-grpc/proto/go_proto"
 
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 )
 
 var (
@@ -48,7 +51,12 @@ func init() {
 
 func main() {
 
-	conn, err := db.GetConnection(host, port, user, dbname, password, sslmode)
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel = context.WithTimeout(ctx, time.Second*30)
+	defer cancel()
+
+	conn, err := connectToDbWithTimeout(ctx)
 	if err != nil {
 		log.Fatalf("can't connect to database, error: %v", err)
 	}
@@ -65,4 +73,20 @@ func main() {
 		log.Fatal(err)
 	}
 
+}
+
+func connectToDbWithTimeout(ctx context.Context) (*gorm.DB, error) {
+	for {
+		time.Sleep(2 * time.Second)
+		conn, err := db.GetConnection(host, port, user, dbname, password, sslmode)
+		if err == nil {
+			return conn, nil
+		}
+		select {
+		case <-ctx.Done():
+			return nil, err
+		default:
+			continue
+		}
+	}
 }
