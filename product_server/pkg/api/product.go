@@ -3,14 +3,12 @@ package api
 import (
 	"context"
 
-	"golang-training-shop-grpc/product_server/pkg/data"
-	pb "golang-training-shop-grpc/proto/go_proto"
+	"github.com/dimaxdqwerty/golang-training-shop-grpc/product_server/pkg/data"
+	pb "github.com/dimaxdqwerty/golang-training-shop-grpc/proto/go_proto"
 
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
-
-const api = "v1"
 
 type ProductServer struct {
 	productData *data.ProductData

@@ -1,4 +1,4 @@
-module golang-training-shop-grpc
+module github.com/dimaxdqwerty/golang-training-shop-grpc
 
 go 1.16
 
