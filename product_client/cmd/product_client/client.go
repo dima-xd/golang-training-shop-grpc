@@ -22,7 +22,7 @@ func init() {
 		serverAddr = "localhost:8080"
 	}
 	if listen == "" {
-		serverAddr = "localhost:8081"
+		listen = "localhost:8081"
 	}
 }
 
