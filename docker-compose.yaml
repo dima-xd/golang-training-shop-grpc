@@ -1,0 +1,47 @@
+version: '3.3'
+
+services:
+  db-shop:
+    image: dimaxdqwerty/db-shop:latest
+    networks:
+      - shop-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=shop
+    ports:
+      - 5432:5432
+    container_name: db-shop
+  product-server:
+    image: dimaxdqwerty/product-server:latest
+    ports:
+      - 8080:8080
+    container_name: product-server
+    environment:
+      - LISTEN=0.0.0.0:8080
+      - DB_USERS_HOST=db-shop
+      - DB_USERS_PORT=5432
+      - DB_USERS_USER=postgres
+      - DB_USERS_DBNAME=shop
+      - DB_USERS_PASSWORD=postgres
+      - DB_USERS_SSL=disable
+    depends_on:
+      - db-shop
+    networks:
+      - shop-network
+  product-client:
+    image: dimaxdqwerty/product-client:latest
+    ports:
+      - 8081:8081
+    container_name: product-client
+    depends_on:
+      - product-server
+    environment:
+      - product-server=product-server:8080
+      - LISTEN=0.0.0.0:8081
+    networks:
+      - shop-network
+
+networks:
+  shop-network:
+    name: shop-network

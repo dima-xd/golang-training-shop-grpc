@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+option go_package = "/go_proto";
+
+package product;
+
+service ProductService {
+  rpc ReadAll(ReadAllRequest) returns (ReadAllResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/products"
+    };
+  }
+  rpc Read(ReadRequest) returns (ReadResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/products/{id}"
+    };
+  }
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/products"
+      body: "*"
+    };
+  }
+  rpc Update(UpdateRequest) returns (UpdateResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/products/{id}/{unit_price}"
+      body: "*"
+    };
+  }
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/products/{id}"
+    };
+  }
+}
+
+message Product {
+  int64 id = 1;
+  string name = 2;
+  int64 product_category_id = 3;
+  int64 quantity = 4;
+  string unit_price = 5;
+}
+
+message ReadAllRequest {
+}
+
+message ReadAllResponse {
+  repeated Product product = 1;
+}
+
+message ReadRequest {
+  int64 id = 1;
+}
+
+message ReadResponse {
+  Product product = 1;
+}
+
+message CreateRequest {
+  Product product = 1;
+}
+
+message CreateResponse {
+  int64 id = 1;
+}
+
+message UpdateRequest {
+  int64 id = 1;
+  string unit_price = 2;
+}
+
+message UpdateResponse {
+}
+
+message DeleteRequest {
+  int64 id = 1;
+}
+
+message DeleteResponse {
+}
