@@ -3,7 +3,7 @@
 This is grpc-gateway project for working with products via database shop.
 
 **grpc-server** runs on `8080` port.
-**gateway runs** on `8081` port.
+**gateway** runs on `8081` port.
 **database** runs on `5432` port.
 
 To work with products use this address:
