@@ -1,6 +1,6 @@
 # golang-training-shop-grpc
 
-This is grpc-gateway project for working with products via database shop.
+This is grpc-gateway project for working with products via shop database.
 
 **grpc-server** runs on `8080` port.
 **gateway** runs on `8081` port.
