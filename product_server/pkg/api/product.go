@@ -2,14 +2,14 @@ package api
 
 import (
 	"context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	"github.com/dimaxdqwerty/golang-training-shop-grpc/product_server/pkg/data"
 	pb "github.com/dimaxdqwerty/golang-training-shop-grpc/proto/go_proto"
 
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+  "google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type ProductServer struct {
