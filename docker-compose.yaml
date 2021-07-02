@@ -37,7 +37,7 @@ services:
     depends_on:
       - product-server
     environment:
-      - product-server=product-server:8080
+      - PRODUCT_SERVER=product-server:8080
       - LISTEN=0.0.0.0:8081
     networks:
       - shop-network
