@@ -8,6 +8,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+  "google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type ProductServer struct {
@@ -22,7 +24,12 @@ func (p ProductServer) ReadAll(ctx context.Context, request *pb.ReadAllRequest) 
 	var products []data.Product
 	products, err := p.productData.ReadAll()
 	if err != nil {
-		log.Fatal("got an error when tried to read all products")
+		s := status.Newf(codes.Internal, "got an error when tried to read all products")
+		errWithDetails, err := s.WithDetails(request)
+		if err != nil {
+			return nil, status.Errorf(codes.Unknown, "cannot convert status to status with details %v", s)
+		}
+		return nil, errWithDetails.Err()
 	}
 	var respProducts []*pb.Product
 	for i := 0; i < len(products); i++ {
@@ -49,7 +56,12 @@ func (p ProductServer) Read(ctx context.Context, request *pb.ReadRequest) (*pb.R
 	var product data.Product
 	product, err := p.productData.Read(request.Id)
 	if err != nil {
-		log.Fatal("got an error when tried to read product")
+		s := status.Newf(codes.Internal, "got an error when tried to read product")
+		errWithDetails, err := s.WithDetails(request)
+		if err != nil {
+			return nil, status.Errorf(codes.Unknown, "cannot convert status to status with details %v", s)
+		}
+		return nil, errWithDetails.Err()
 	}
 	respProduct := pb.Product{
 		Id:                product.ID,
@@ -77,7 +89,12 @@ func (p ProductServer) Create(ctx context.Context, request *pb.CreateRequest) (*
 	}
 	id, err := p.productData.Create(product)
 	if err != nil {
-		log.Fatal("got an error when tried to create product")
+		s := status.Newf(codes.Internal, "got an error when tried to create product")
+		errWithDetails, err := s.WithDetails(request)
+		if err != nil {
+			return nil, status.Errorf(codes.Unknown, "cannot convert status to status with details %v", s)
+		}
+		return nil, errWithDetails.Err()
 	}
 	log.WithFields(log.Fields{
 		"id":                  id,
@@ -92,7 +109,12 @@ func (p ProductServer) Create(ctx context.Context, request *pb.CreateRequest) (*
 func (p ProductServer) Update(ctx context.Context, request *pb.UpdateRequest) (*pb.UpdateResponse, error) {
 	err := p.productData.Update(request.Id, request.UnitPrice)
 	if err != nil {
-		log.Fatal("got an error when tried to update product")
+		s := status.Newf(codes.Internal, "got an error when tried to update product")
+		errWithDetails, err := s.WithDetails(request)
+		if err != nil {
+			return nil, status.Errorf(codes.Unknown, "cannot convert status to status with details %v", s)
+		}
+		return nil, errWithDetails.Err()
 	}
 	log.WithFields(log.Fields{
 		"id":         request.Id,
@@ -104,7 +126,12 @@ func (p ProductServer) Update(ctx context.Context, request *pb.UpdateRequest) (*
 func (p ProductServer) Delete(ctx context.Context, request *pb.DeleteRequest) (*pb.DeleteResponse, error) {
 	err := p.productData.Delete(request.Id)
 	if err != nil {
-		log.Fatal("got an error when tried to delete product")
+		s := status.Newf(codes.Internal, "got an error when tried to delete product")
+		errWithDetails, err := s.WithDetails(request)
+		if err != nil {
+			return nil, status.Errorf(codes.Unknown, "cannot convert status to status with details %v", s)
+		}
+		return nil, errWithDetails.Err()
 	}
 	log.WithFields(log.Fields{
 		"id": request.Id,

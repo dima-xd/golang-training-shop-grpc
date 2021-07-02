@@ -6,6 +6,36 @@ option go_package = "/go_proto";
 
 package product;
 
+service ProductService {
+  rpc ReadAll(ReadAllRequest) returns (ReadAllResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/products"
+    };
+  }
+  rpc Read(ReadRequest) returns (ReadResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/products/{id}"
+    };
+  }
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/products"
+      body: "*"
+    };
+  }
+  rpc Update(UpdateRequest) returns (UpdateResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/products/{id}/{unit_price}"
+      body: "*"
+    };
+  }
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/products/{id}"
+    };
+  }
+}
+
 message Product {
   int64 id = 1;
   string name = 2;
@@ -50,40 +80,4 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
-}
-
-service ProductService {
-
-  rpc ReadAll(ReadAllRequest) returns (ReadAllResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/products"
-    };
-  }
-
-  rpc Read(ReadRequest) returns (ReadResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/products/{id}"
-    };
-  }
-
-  rpc Create(CreateRequest) returns (CreateResponse) {
-    option (google.api.http) = {
-      post: "/api/v1/products"
-      body: "*"
-    };
-  }
-
-  rpc Update(UpdateRequest) returns (UpdateResponse) {
-    option (google.api.http) = {
-      put: "/api/v1/products/{id}/{unit_price}"
-      body: "*"
-    };
-  }
-
-  rpc Delete(DeleteRequest) returns (DeleteResponse) {
-    option (google.api.http) = {
-      delete: "/api/v1/products/{id}"
-    };
-  }
-
 }
